@@ -14,8 +14,8 @@ export default function ViaHimalayaLogo({
   showText = true, 
   animate = false 
 }: ViaHimalayaLogoProps) {
-  const logoSize = size === 'small' ? 'w-8 h-8' : 'w-20 h-20';
-  const textSize = size === 'small' ? 'text-xl' : 'text-4xl';
+  const logoSize = size === 'small' ? 'w-6 h-6 sm:w-8 sm:h-8' : 'w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20';
+  const textSize = size === 'small' ? 'text-lg sm:text-xl' : 'text-2xl sm:text-3xl md:text-4xl';
 
   return (
     <motion.div 
@@ -34,10 +34,10 @@ export default function ViaHimalayaLogo({
         <Image
           src="/logo.svg"
           alt="ViaHimalaya Logo"
-          width={size === 'small' ? 32 : 80}
-          height={size === 'small' ? 32 : 80}
-          className="w-full h-full object-contain"
+          fill
+          className="object-contain"
           priority
+          sizes={size === 'small' ? '(max-width: 640px) 24px, 32px' : '(max-width: 640px) 48px, (max-width: 768px) 64px, 80px'}
         />
       </div>
       

@@ -31,7 +31,7 @@ export default function ComingSoonPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="mb-8"
+          className="mb-6 sm:mb-8"
         >
           <ViaHimalayaLogo size="large" showText={false} animate={true} />
         </motion.div>
@@ -71,10 +71,9 @@ export default function ComingSoonPage() {
         </main>
       </div>
 
-
       {/* Values Section */}
-      <section className="relative z-10 bg-gradient-to-b from-black/80 to-black/90 py-20">
-        <div className="max-w-6xl mx-auto px-6">
+      <section className="relative z-10 bg-gradient-to-b from-black/80 to-black/90 py-12 sm:py-16 md:py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -82,15 +81,15 @@ export default function ComingSoonPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-sans">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 font-sans">
               Built for the Indian Mountains
             </h2>
-            <p className="text-lg text-white/70 max-w-2xl mx-auto font-sans">
+            <p className="text-base sm:text-lg text-white/70 max-w-2xl mx-auto font-sans px-4 sm:px-0">
               Every feature designed with the unique challenges of Himalayan trekking in mind.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             {/* Offline First */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
