@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   description: "High-precision, guide-verified offline trails for India's most iconic treks. Coming Soon.",
   keywords: "himalaya, trekking, trails, offline maps, india, mountains, hiking, adventure",
   authors: [{ name: "ViaHimalaya" }],
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   openGraph: {
     title: "ViaHimalaya - Coming Soon",
     description: "High-precision, guide-verified offline trails for India's most iconic treks.",

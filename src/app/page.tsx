@@ -20,12 +20,12 @@ export default function ComingSoonPage() {
         }}
       >
         {/* Header */}
-        <header className="absolute top-0 left-0 right-0 z-10 flex justify-start items-center p-6 md:p-8">
+        <header className="absolute top-0 left-0 right-0 z-10 flex justify-start items-center p-4 sm:p-6 md:p-8">
           <ViaHimalayaLogo size="small" showText={true} />
         </header>
 
         {/* Main Content */}
-        <main className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
+        <main className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 text-center">
         {/* Centerpiece Logo */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -41,7 +41,7 @@ export default function ComingSoonPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight font-sans"
+          className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight font-sans"
           style={{ fontWeight: 900 }}
         >
           COMING SOON
@@ -52,7 +52,7 @@ export default function ComingSoonPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="text-xl md:text-2xl text-white/90 mb-8 max-w-4xl leading-relaxed -mt-4 font-sans"
+          className="text-lg sm:text-xl md:text-2xl text-white/90 mb-6 sm:mb-8 max-w-4xl leading-relaxed -mt-2 sm:-mt-4 font-sans px-2"
         >
           High-precision, guide-verified offline trails for Himalayas most iconic treks.
         </motion.p>
@@ -63,7 +63,7 @@ export default function ComingSoonPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
           onClick={handleJoinWaitlist}
-          className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-2 rounded-full hover:bg-white/20 transition-all duration-300 font-medium font-sans"
+          className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full hover:bg-white/20 transition-all duration-300 font-medium font-sans text-sm sm:text-base"
         >
           Join Waitlist
         </motion.button>
