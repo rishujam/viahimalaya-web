@@ -10,7 +10,7 @@ export default function ComingSoonPage() {
   };
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden bg-black min-h-screen">
       {/* Hero Section with Background */}
       <div
         className="w-full bg-cover bg-center bg-no-repeat relative"

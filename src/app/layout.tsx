@@ -49,9 +49,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased bg-black`}
     >
-      <body className="min-h-full flex flex-col" suppressHydrationWarning={true}>{children}</body>
+      <body className="min-h-full flex flex-col bg-black" suppressHydrationWarning={true}>{children}</body>
     </html>
   );
 }
