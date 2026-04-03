@@ -21,3 +21,34 @@ body {
   color: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Hero container responsive styles */
+.hero-container {
+  /* Fallback for browsers that don't support dvh */
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* Ensure proper viewport handling on mobile */
+@supports (height: 100dvh) {
+  .hero-container {
+    height: 100dvh;
+  }
+}
+
+/* Additional mobile optimizations */
+@media (max-width: 768px) {
+  .hero-container {
+    /* Ensure minimum height on very small screens */
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+}
+
+/* Handle landscape orientation on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-container {
+    height: 100vh;
+    min-height: 100vh;
+  }
+}
