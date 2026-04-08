@@ -41,8 +41,6 @@ interface UploadPayload {
   points: PathPoint[];
 }
 
-// Initialize Neon connection
-const sql = neon(process.env.DATABASE_URL!);
 
 export async function POST(request: NextRequest) {
   try {
@@ -108,6 +106,8 @@ export async function POST(request: NextRequest) {
         }
       }
     }
+
+    const sql = neon(process.env.DATABASE_URL!);
 
     // Execute database operations
     // Insert trek record first
