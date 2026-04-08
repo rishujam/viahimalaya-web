@@ -1,0 +1,118 @@
+{
+  "trek_meta": {
+    "guide_id": "guide_001",
+    "trek_name": "Triund Trek - Test Route",
+    "start_time": 1711696000,
+    "end_time": 1711782400,
+    "description": "Test trek data for API validation - Beautiful trek to Triund with stunning views of Dhauladhar range",
+    "difficulty_level": "moderate",
+    "region": "Himachal Pradesh"
+  },
+  "points": [
+    {
+      "timestamp": 1711696000,
+      "lat": 32.2396,
+      "lon": 76.3250,
+      "alt_gps": 2240.5,
+      "alt_baro": 2242.1,
+      "accuracy_h": 3.2,
+      "accuracy_v": 5.0,
+      "sat_count": 14,
+      "speed": 1.1,
+      "bearing": 145.2,
+      "battery": 88,
+      "raw_sensors": {
+        "accel_x": 0.02,
+        "accel_y": 0.05,
+        "accel_z": 9.81,
+        "gyro_x": 0.001,
+        "gyro_y": -0.002,
+        "gyro_z": 0.003
+      }
+    },
+    {
+      "timestamp": 1711696060,
+      "lat": 32.2398,
+      "lon": 76.3252,
+      "alt_gps": 2245.2,
+      "alt_baro": 2247.3,
+      "accuracy_h": 2.8,
+      "accuracy_v": 4.5,
+      "sat_count": 15,
+      "speed": 1.3,
+      "bearing": 147.8,
+      "battery": 88,
+      "raw_sensors": {
+        "accel_x": 0.03,
+        "accel_y": 0.04,
+        "accel_z": 9.82,
+        "gyro_x": 0.002,
+        "gyro_y": -0.001,
+        "gyro_z": 0.004
+      }
+    },
+    {
+      "timestamp": 1711696120,
+      "lat": 32.2401,
+      "lon": 76.3255,
+      "alt_gps": 2250.8,
+      "alt_baro": 2252.9,
+      "accuracy_h": 3.1,
+      "accuracy_v": 5.2,
+      "sat_count": 13,
+      "speed": 1.0,
+      "bearing": 150.1,
+      "battery": 87,
+      "raw_sensors": {
+        "accel_x": 0.01,
+        "accel_y": 0.06,
+        "accel_z": 9.80,
+        "gyro_x": 0.000,
+        "gyro_y": -0.003,
+        "gyro_z": 0.002
+      }
+    },
+    {
+      "timestamp": 1711696180,
+      "lat": 32.2404,
+      "lon": 76.3258,
+      "alt_gps": 2256.1,
+      "alt_baro": 2258.4,
+      "accuracy_h": 2.9,
+      "accuracy_v": 4.8,
+      "sat_count": 16,
+      "speed": 1.2,
+      "bearing": 152.5,
+      "battery": 87,
+      "raw_sensors": {
+        "accel_x": 0.04,
+        "accel_y": 0.03,
+        "accel_z": 9.83,
+        "gyro_x": 0.003,
+        "gyro_y": -0.002,
+        "gyro_z": 0.001
+      }
+    },
+    {
+      "timestamp": 1711696240,
+      "lat": 32.2407,
+      "lon": 76.3261,
+      "alt_gps": 2261.7,
+      "alt_baro": 2264.0,
+      "accuracy_h": 3.5,
+      "accuracy_v": 5.5,
+      "sat_count": 12,
+      "speed": 0.8,
+      "bearing": 155.3,
+      "battery": 86,
+      "raw_sensors": {
+        "accel_x": 0.02,
+        "accel_y": 0.07,
+        "accel_z": 9.79,
+        "gyro_x": -0.001,
+        "gyro_y": -0.004,
+        "gyro_z": 0.005
+      }
+    }
+  ]
+}
