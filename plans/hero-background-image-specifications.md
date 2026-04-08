@@ -20,7 +20,7 @@ The background uses:
 
 ### Rationale:
 1. **Desktop Coverage**: Handles up to 2560px wide displays (common ultrawide monitors)
-2. **Aspect Ratio**: 16:9 works well across most screen sizes
+2. **Aspect Ratio**: 16:9 works well across most screen sizes.
 3. **Responsive Scaling**: Large enough to maintain quality when scaled down
 4. **Performance Balance**: Reasonable file size while maintaining quality
 
