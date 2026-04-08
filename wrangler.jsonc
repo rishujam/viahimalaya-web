@@ -1,13 +1,18 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "viahimalaya-web",
+  "main": ".open-next/worker.js",
   "compatibility_date": "2026-04-08",
   "compatibility_flags": [
     "nodejs_compat"
   ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
   "vars": {
-    // DO NOT put the actual secrets here yet
-    // We want to keep using the Dashboard for security
+    "NEXTAUTH_URL": "https://viahimalaya.com",
+    "NODE_ENV": "production"
   },
   "observability": {
     "enabled": true
