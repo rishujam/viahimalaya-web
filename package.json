@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "opennextjs-cloudflare build",
     "start": "next start",
-    "lint": "eslint",
-    "deploy": "opennextjs-cloudflare deploy"
+    "lint": "eslint"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
