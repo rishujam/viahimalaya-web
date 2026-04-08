@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "viahimalaya-web",
+  "compatibility_date": "2026-04-08",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "vars": {
+    // DO NOT put the actual secrets here yet
+    // We want to keep using the Dashboard for security
+  },
+  "observability": {
+    "enabled": true
+  }
+}
