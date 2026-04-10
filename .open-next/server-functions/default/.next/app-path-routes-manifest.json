@@ -1,0 +1,7 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/trek/upload/route": "/api/trek/upload",
+  "/icon.svg/route": "/icon.svg",
+  "/page": "/"
+}

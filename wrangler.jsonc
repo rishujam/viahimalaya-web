@@ -14,6 +14,16 @@
     "NEXTAUTH_URL": "https://viahimalaya.com",
     "NODE_ENV": "production"
   },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "viahimalaya-web",
+      "environment": "production"
+    }
+  ],
+  "images": {
+    "binding": "IMAGES"
+  },
   "observability": {
     "enabled": true
   }
