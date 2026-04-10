@@ -81,9 +81,9 @@ export async function POST(request: NextRequest) {
 
     // Validate trek_meta required fields
     const { trek_meta } = payload;
-    if (!trek_meta.trek_name || !trek_meta.start_time) {
+    if (!trek_meta.trek_name || !trek_meta.start_time || !trek_meta.guide_id) {
       return NextResponse.json(
-        { error: 'Missing required trek_meta fields: trek_name and start_time' },
+        { error: 'Missing required trek_meta fields: trek_name, start_time, and guide_id' },
         { status: 400 }
       );
     }
@@ -116,7 +116,7 @@ export async function POST(request: NextRequest) {
         guide_id, trek_name, start_time, end_time, description,
         difficulty_level, region, metadata, created_at
       ) VALUES (
-        ${trek_meta.guide_id || null},
+        ${trek_meta.guide_id},
         ${trek_meta.trek_name},
         to_timestamp(${trek_meta.start_time}),
         ${trek_meta.end_time ? sql`to_timestamp(${trek_meta.end_time})` : null},

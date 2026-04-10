@@ -24,6 +24,12 @@
   "images": {
     "binding": "IMAGES"
   },
+  "routes": [
+    {
+      "pattern": "viahimalaya.com/api/*",
+      "zone_name": "viahimalaya.com"
+    }
+  ],
   "observability": {
     "enabled": true
   }
