@@ -4,8 +4,8 @@
 -- Enable UUID extension if not already enabled
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- Create treks table
-CREATE TABLE IF NOT EXISTS treks (
+-- Create navigator_treks table
+CREATE TABLE IF NOT EXISTS navigator_treks (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     guide_id VARCHAR(255),
     trek_name VARCHAR(255) NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS treks (
 -- Create path_points table for GPS data
 CREATE TABLE IF NOT EXISTS path_points (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    trek_id UUID NOT NULL REFERENCES treks(id) ON DELETE CASCADE,
+    trek_id UUID NOT NULL REFERENCES navigator_treks(id) ON DELETE CASCADE,
     timestamp TIMESTAMP WITH TIME ZONE NOT NULL,
     lat DECIMAL(10, 7) NOT NULL, -- Latitude with 7 decimal precision (~1cm accuracy)
     lon DECIMAL(10, 7) NOT NULL, -- Longitude with 7 decimal precision
@@ -39,10 +39,10 @@ CREATE TABLE IF NOT EXISTS path_points (
 );
 
 -- Create indexes for better query performance
-CREATE INDEX IF NOT EXISTS idx_treks_guide_id ON treks(guide_id);
-CREATE INDEX IF NOT EXISTS idx_treks_start_time ON treks(start_time);
-CREATE INDEX IF NOT EXISTS idx_treks_region ON treks(region);
-CREATE INDEX IF NOT EXISTS idx_treks_created_at ON treks(created_at);
+CREATE INDEX IF NOT EXISTS idx_navigator_treks_guide_id ON navigator_treks(guide_id);
+CREATE INDEX IF NOT EXISTS idx_navigator_treks_start_time ON navigator_treks(start_time);
+CREATE INDEX IF NOT EXISTS idx_navigator_treks_region ON navigator_treks(region);
+CREATE INDEX IF NOT EXISTS idx_navigator_treks_created_at ON navigator_treks(created_at);
 
 CREATE INDEX IF NOT EXISTS idx_path_points_trek_id ON path_points(trek_id);
 CREATE INDEX IF NOT EXISTS idx_path_points_timestamp ON path_points(timestamp);
@@ -61,22 +61,22 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
-CREATE TRIGGER update_treks_updated_at 
-    BEFORE UPDATE ON treks 
-    FOR EACH ROW 
+CREATE TRIGGER update_navigator_treks_updated_at
+    BEFORE UPDATE ON navigator_treks
+    FOR EACH ROW
     EXECUTE FUNCTION update_updated_at_column();
 
 -- Add comments for documentation
-COMMENT ON TABLE treks IS 'Main table storing trek metadata and information';
+COMMENT ON TABLE navigator_treks IS 'Main table storing navigator trek metadata and information';
 COMMENT ON TABLE path_points IS 'GPS tracking points for each trek with sensor data';
 
-COMMENT ON COLUMN treks.guide_id IS 'Identifier for the guide who recorded this trek';
-COMMENT ON COLUMN treks.trek_name IS 'Human-readable name of the trek';
-COMMENT ON COLUMN treks.start_time IS 'When the trek recording started';
-COMMENT ON COLUMN treks.end_time IS 'When the trek recording ended (optional)';
-COMMENT ON COLUMN treks.difficulty_level IS 'Trek difficulty (easy, moderate, difficult, extreme)';
-COMMENT ON COLUMN treks.region IS 'Geographic region (e.g., Himachal Pradesh, Uttarakhand)';
-COMMENT ON COLUMN treks.metadata IS 'Additional trek information in JSON format';
+COMMENT ON COLUMN navigator_treks.guide_id IS 'Identifier for the guide who recorded this trek';
+COMMENT ON COLUMN navigator_treks.trek_name IS 'Human-readable name of the trek';
+COMMENT ON COLUMN navigator_treks.start_time IS 'When the trek recording started';
+COMMENT ON COLUMN navigator_treks.end_time IS 'When the trek recording ended (optional)';
+COMMENT ON COLUMN navigator_treks.difficulty_level IS 'Trek difficulty (easy, moderate, difficult, extreme)';
+COMMENT ON COLUMN navigator_treks.region IS 'Geographic region (e.g., Himachal Pradesh, Uttarakhand)';
+COMMENT ON COLUMN navigator_treks.metadata IS 'Additional trek information in JSON format';
 
 COMMENT ON COLUMN path_points.trek_id IS 'Foreign key reference to the parent trek';
 COMMENT ON COLUMN path_points.timestamp IS 'Unix timestamp when this GPS point was recorded';
@@ -92,9 +92,9 @@ COMMENT ON COLUMN path_points.bearing IS 'Direction of travel in degrees (0-360)
 COMMENT ON COLUMN path_points.battery IS 'Device battery percentage at time of recording';
 COMMENT ON COLUMN path_points.raw_sensors IS 'Raw sensor data (accelerometer, gyroscope, etc.) in JSON format';
 
--- Create a view for easy trek summary queries
-CREATE OR REPLACE VIEW trek_summaries AS
-SELECT 
+-- Create a view for easy navigator trek summary queries
+CREATE OR REPLACE VIEW navigator_trek_summaries AS
+SELECT
     t.id,
     t.guide_id,
     t.trek_name,
@@ -111,20 +111,20 @@ SELECT
     MAX(p.alt_gps) as max_altitude,
     AVG(p.speed) as avg_speed,
     ST_MakeEnvelope(
-        MIN(p.lon), MIN(p.lat), 
-        MAX(p.lon), MAX(p.lat), 
+        MIN(p.lon), MIN(p.lat),
+        MAX(p.lon), MAX(p.lat),
         4326
     ) as bounding_box
-FROM treks t
+FROM navigator_treks t
 LEFT JOIN path_points p ON t.id = p.trek_id
-GROUP BY t.id, t.guide_id, t.trek_name, t.start_time, t.end_time, 
+GROUP BY t.id, t.guide_id, t.trek_name, t.start_time, t.end_time,
          t.description, t.difficulty_level, t.region, t.created_at;
 
-COMMENT ON VIEW trek_summaries IS 'Summary view with trek statistics and bounding box';
+COMMENT ON VIEW navigator_trek_summaries IS 'Summary view with navigator trek statistics and bounding box';
 
 -- Grant permissions (adjust as needed for your setup)
--- GRANT SELECT, INSERT, UPDATE, DELETE ON treks TO your_app_user;
+-- GRANT SELECT, INSERT, UPDATE, DELETE ON navigator_treks TO your_app_user;
 -- GRANT SELECT, INSERT, UPDATE, DELETE ON path_points TO your_app_user;
--- GRANT SELECT ON trek_summaries TO your_app_user;
--- GRANT USAGE ON SEQUENCE treks_id_seq TO your_app_user;
+-- GRANT SELECT ON navigator_trek_summaries TO your_app_user;
+-- GRANT USAGE ON SEQUENCE navigator_treks_id_seq TO your_app_user;
 -- GRANT USAGE ON SEQUENCE path_points_id_seq TO your_app_user;

@@ -25,7 +25,7 @@ interface PathPoint {
   [key: string]: any; // Add index signature for dynamic field access
 }
 
-interface TrekMeta {
+interface NavigatorMeta {
   guide_id?: string;
   trek_name: string;
   start_time: number;
@@ -37,7 +37,7 @@ interface TrekMeta {
 }
 
 interface UploadPayload {
-  trek_meta: TrekMeta;
+  navigator_trek_meta: NavigatorMeta;
   points: PathPoint[];
 }
 
@@ -65,9 +65,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate required fields
-    if (!payload.trek_meta || !payload.points || !Array.isArray(payload.points)) {
+    if (!payload.navigator_trek_meta || !payload.points || !Array.isArray(payload.points)) {
       return NextResponse.json(
-        { error: 'Missing required fields: trek_meta and points array' },
+        { error: 'Missing required fields: navigator_trek_meta and points array' },
         { status: 400 }
       );
     }
@@ -79,11 +79,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate trek_meta required fields
-    const { trek_meta } = payload;
-    if (!trek_meta.trek_name || !trek_meta.start_time || !trek_meta.guide_id) {
+    // Validate navigator_trek_meta required fields
+    const { navigator_trek_meta } = payload;
+    if (!navigator_trek_meta.trek_name || !navigator_trek_meta.start_time || !navigator_trek_meta.guide_id) {
       return NextResponse.json(
-        { error: 'Missing required trek_meta fields: trek_name, start_time, and guide_id' },
+        { error: 'Missing required navigator_trek_meta fields: trek_name, start_time, and guide_id' },
         { status: 400 }
       );
     }
@@ -110,25 +110,25 @@ export async function POST(request: NextRequest) {
     const sql = neon(process.env.DATABASE_URL!);
 
     // Execute database operations
-    // Insert trek record first
-    const trekResult = await sql`
-      INSERT INTO treks (
+    // Insert navigator_trek record first
+    const navigatorTrekResult = await sql`
+      INSERT INTO navigator_treks (
         guide_id, trek_name, start_time, end_time, description,
         difficulty_level, region, metadata, created_at
       ) VALUES (
-        ${trek_meta.guide_id},
-        ${trek_meta.trek_name},
-        to_timestamp(${trek_meta.start_time}),
-        ${trek_meta.end_time ? sql`to_timestamp(${trek_meta.end_time})` : null},
-        ${trek_meta.description || null},
-        ${trek_meta.difficulty_level || null},
-        ${trek_meta.region || null},
-        ${JSON.stringify(trek_meta)},
+        ${navigator_trek_meta.guide_id},
+        ${navigator_trek_meta.trek_name},
+        to_timestamp(${navigator_trek_meta.start_time}),
+        ${navigator_trek_meta.end_time ? sql`to_timestamp(${navigator_trek_meta.end_time})` : null},
+        ${navigator_trek_meta.description || null},
+        ${navigator_trek_meta.difficulty_level || null},
+        ${navigator_trek_meta.region || null},
+        ${JSON.stringify(navigator_trek_meta)},
         NOW()
       ) RETURNING id
     `;
 
-    const trekId = trekResult[0].id;
+    const trekId = navigatorTrekResult[0].id;
 
     // Bulk insert path points if any exist
     let pointsInserted = 0;
@@ -207,7 +207,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { error: 'Internal server error during trek upload' },
+      { error: 'Internal server error during navigator_trek upload' },
       { status: 500 }
     );
   }
@@ -216,21 +216,21 @@ export async function POST(request: NextRequest) {
 // Handle unsupported methods
 export async function GET() {
   return NextResponse.json(
-    { error: 'Method not allowed. Use POST to upload trek data.' },
+    { error: 'Method not allowed. Use POST to upload navigator_trek data.' },
     { status: 405 }
   );
 }
 
 export async function PUT() {
   return NextResponse.json(
-    { error: 'Method not allowed. Use POST to upload trek data.' },
+    { error: 'Method not allowed. Use POST to upload navigator_trek data.' },
     { status: 405 }
   );
 }
 
 export async function DELETE() {
   return NextResponse.json(
-    { error: 'Method not allowed. Use POST to upload trek data.' },
+    { error: 'Method not allowed. Use POST to upload navigator_trek data.' },
     { status: 405 }
   );
 }
