@@ -14,6 +14,14 @@ interface Trek {
 }
 
 export async function GET(request: NextRequest) {
+  const authHeader = request.headers.get('Authorization');
+  const expectedAuth = `Bearer ${process.env.INTERNAL_API_KEY}`;
+  if (!authHeader || authHeader !== expectedAuth) {
+    return NextResponse.json(
+      { error: 'Unauthorized: Invalid or missing API key' },
+      { status: 401 }
+    );
+  }
   try {
     // Initialize database connection
     const sql = neon(process.env.DATABASE_URL!);
