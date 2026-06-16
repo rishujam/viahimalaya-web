@@ -4,7 +4,7 @@ import { Trek } from '@/types/trek';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   // Authentication check
   const authHeader = request.headers.get('Authorization');
@@ -17,8 +17,8 @@ export async function GET(
   }
 
   try {
-    // Extract trek ID from route parameters
-    const trekId = params.id;
+    // Await params in Next.js 15+
+    const { id: trekId } = await params;
 
     // Validate that ID is provided
     if (!trekId) {
