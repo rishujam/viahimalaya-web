@@ -122,61 +122,45 @@ export async function POST(request: NextRequest) {
     // Initialize database connection
     const sql = neon(process.env.DATABASE_URL!);
 
-    // Start transaction by inserting navigator trek record
-    const startTime = navigatorTrek.points && navigatorTrek.points.length > 0
-      ? new Date(navigatorTrek.points[0].timestamp)
-      : new Date();
-
-    const endTime = navigatorTrek.points && navigatorTrek.points.length > 0
-      ? new Date(navigatorTrek.points[navigatorTrek.points.length - 1].timestamp)
-      : null;
-
     // Insert navigator_trek record
     const navigatorTrekResult = await sql`
       INSERT INTO navigator_treks (
-        id, guide_id, trek_name, start_time, end_time, metadata, created_at
+        id, user_id, trek_id, created_at
       ) VALUES (
         ${navigatorTrek.id},
         ${navigatorTrek.user},
         ${navigatorTrek.trekId},
-        ${startTime.toISOString()},
-        ${endTime ? endTime.toISOString() : null},
-        ${JSON.stringify({ trekId: navigatorTrek.trekId, user: navigatorTrek.user })},
         NOW()
       )
       ON CONFLICT (id) DO UPDATE SET
-        guide_id = EXCLUDED.guide_id,
-        trek_name = EXCLUDED.trek_name,
-        start_time = EXCLUDED.start_time,
-        end_time = EXCLUDED.end_time,
-        metadata = EXCLUDED.metadata,
+        user_id = EXCLUDED.user_id,
+        trek_id = EXCLUDED.trek_id,
         updated_at = NOW()
       RETURNING id
     `;
 
     const insertedTrekId = navigatorTrekResult[0].id;
 
-    // Insert path points if provided
+    // Insert points if provided
     let insertedPointsCount = 0;
     if (navigatorTrek.points && navigatorTrek.points.length > 0) {
       // Delete existing points for this trek (in case of re-upload)
-      await sql`DELETE FROM path_points WHERE trek_id = ${insertedTrekId}`;
+      await sql`DELETE FROM points WHERE navigator_trek_id = ${insertedTrekId}`;
 
       // Insert points individually (simpler and more reliable)
       for (const point of navigatorTrek.points) {
-        const timestamp = new Date(point.timestamp).toISOString();
         const rawSensorsJson = point.rawSensors ? JSON.stringify(point.rawSensors) : null;
 
         await sql`
-          INSERT INTO path_points (
-            trek_id, timestamp, lat, lon, alt_gps, alt_baro,
+          INSERT INTO points (
+            navigator_trek_id, lat, lon, timestamp, alt_gps, alt_baro,
             accuracy_h, accuracy_v, speed, bearing, battery,
             raw_sensors, created_at
           ) VALUES (
             ${insertedTrekId},
-            ${timestamp},
             ${point.lat},
             ${point.lon},
+            ${point.timestamp},
             ${point.altGps ?? null},
             ${point.altBaro ?? null},
             ${point.accuracyH ?? null},

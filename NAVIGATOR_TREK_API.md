@@ -62,7 +62,7 @@ Authorization: Bearer YOUR_INTERNAL_API_KEY
 
 ## Example Request
 
-### cURL
+### cURL - Complete Example with All Fields
 ```bash
 curl -X POST https://your-domain.com/api/navigator-trek/upload \
   -H "Content-Type: application/json" \
@@ -101,7 +101,72 @@ curl -X POST https://your-domain.com/api/navigator-trek/upload \
         "lon": 77.1895,
         "timestamp": 1719945660000,
         "altGps": 2055.2,
-        "battery": 84
+        "altBaro": 2053.8,
+        "accuracyH": 4.8,
+        "accuracyV": 7.5,
+        "speed": 1.5,
+        "bearing": 47.5,
+        "battery": 84,
+        "rawSensors": {
+          "accelerometerX": 0.15,
+          "accelerometerY": -0.03,
+          "accelerometerZ": 9.79,
+          "gyroscopeX": 0.02,
+          "gyroscopeY": -0.01,
+          "gyroscopeZ": 0.01,
+          "magnetometerX": 24.1,
+          "magnetometerY": -11.8,
+          "magnetometerZ": 46.2,
+          "pressure": 1013.20
+        }
+      },
+      {
+        "lat": 32.2438,
+        "lon": 77.1898,
+        "timestamp": 1719945720000,
+        "altGps": 2060.1,
+        "altBaro": 2058.5,
+        "accuracyH": 5.0,
+        "accuracyV": 8.0,
+        "speed": 1.3,
+        "bearing": 50.0,
+        "battery": 84,
+        "rawSensors": {
+          "accelerometerX": 0.10,
+          "accelerometerY": -0.06,
+          "accelerometerZ": 9.82,
+          "gyroscopeX": 0.00,
+          "gyroscopeY": -0.03,
+          "gyroscopeZ": -0.01,
+          "magnetometerX": 23.8,
+          "magnetometerY": -12.5,
+          "magnetometerZ": 45.9,
+          "pressure": 1013.15
+        }
+      }
+    ]
+  }'
+```
+
+### cURL - Minimal Example (Required Fields Only)
+```bash
+curl -X POST https://your-domain.com/api/navigator-trek/upload \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_INTERNAL_API_KEY" \
+  -d '{
+    "id": "trek-123-uuid",
+    "user": "user-456",
+    "trekId": "manali-loop",
+    "points": [
+      {
+        "lat": 32.2432,
+        "lon": 77.1892,
+        "timestamp": 1719945600000
+      },
+      {
+        "lat": 32.2435,
+        "lon": 77.1895,
+        "timestamp": 1719945660000
       }
     ]
   }'
