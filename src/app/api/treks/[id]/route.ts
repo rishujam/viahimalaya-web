@@ -36,7 +36,7 @@ export async function GET(
 
     // Query single trek by ID from the treks table
     const result = await sql`
-      SELECT 
+      SELECT
         id,
         name,
         location,
@@ -44,6 +44,7 @@ export async function GET(
         elevation,
         bounding_box,
         coordinate_url,
+        image_url,
         created_at
       FROM treks
       WHERE id = ${trekId}
@@ -69,6 +70,7 @@ export async function GET(
       elevation: result[0].elevation,
       bounding_box: result[0].bounding_box,
       coordinate_url: result[0].coordinate_url,
+      image_url: result[0].image_url,
       created_at: result[0].created_at
     };
 

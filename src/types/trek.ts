@@ -7,5 +7,6 @@ export interface Trek {
   elevation: string;
   bounding_box: number[];
   coordinate_url: string;
+  image_url?: string;
   created_at: string;
 }
