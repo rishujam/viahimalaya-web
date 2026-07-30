@@ -67,7 +67,8 @@ export async function GET(request: NextRequest) {
         treks = await sql`
           SELECT
             id, name, location, distance, elevation,
-            bounding_box, coordinate_url, image_url, created_at
+            bounding_box, coordinate_url, image_url,
+            poi_url, poi_updated_at, created_at
           FROM treks
           WHERE
             (${locationPattern}::text IS NULL OR location ILIKE ${locationPattern})
@@ -89,7 +90,8 @@ export async function GET(request: NextRequest) {
         treks = await sql`
           SELECT
             id, name, location, distance, elevation,
-            bounding_box, coordinate_url, image_url, created_at
+            bounding_box, coordinate_url, image_url,
+            poi_url, poi_updated_at, created_at
           FROM treks
           WHERE
             (${locationPattern}::text IS NULL OR location ILIKE ${locationPattern})
@@ -114,7 +116,8 @@ export async function GET(request: NextRequest) {
         treks = await sql`
           SELECT
             id, name, location, distance, elevation,
-            bounding_box, coordinate_url, image_url, created_at
+            bounding_box, coordinate_url, image_url,
+            poi_url, poi_updated_at, created_at
           FROM treks
           ORDER BY random()
           LIMIT ${limit}
@@ -124,7 +127,8 @@ export async function GET(request: NextRequest) {
         treks = await sql`
           SELECT
             id, name, location, distance, elevation,
-            bounding_box, coordinate_url, image_url, created_at
+            bounding_box, coordinate_url, image_url,
+            poi_url, poi_updated_at, created_at
           FROM treks
           ORDER BY created_at DESC
           LIMIT ${limit}
@@ -148,6 +152,8 @@ export async function GET(request: NextRequest) {
       bounding_box: trek.bounding_box,
       coordinate_url: trek.coordinate_url,
       image_url: trek.image_url,
+      poi_url: trek.poi_url ?? null,
+      poi_updated_at: trek.poi_updated_at ?? null,
       created_at: trek.created_at
     }));
     

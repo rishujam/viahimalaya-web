@@ -45,6 +45,8 @@ export async function GET(
         bounding_box,
         coordinate_url,
         image_url,
+        poi_url,
+        poi_updated_at,
         created_at
       FROM treks
       WHERE id = ${trekId}
@@ -71,6 +73,8 @@ export async function GET(
       bounding_box: result[0].bounding_box,
       coordinate_url: result[0].coordinate_url,
       image_url: result[0].image_url,
+      poi_url: result[0].poi_url ?? null,
+      poi_updated_at: result[0].poi_updated_at ?? null,
       created_at: result[0].created_at
     };
 

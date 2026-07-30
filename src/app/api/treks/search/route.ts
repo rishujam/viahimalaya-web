@@ -37,7 +37,8 @@ export async function GET(request: NextRequest) {
     const treks = await sql`
       SELECT
         id, name, location, distance, elevation,
-        bounding_box, coordinate_url, image_url, created_at
+        bounding_box, coordinate_url, image_url,
+        poi_url, poi_updated_at, created_at
       FROM treks
       WHERE name ILIKE ${searchPattern}
       ORDER BY name ASC
@@ -53,6 +54,8 @@ export async function GET(request: NextRequest) {
       bounding_box: trek.bounding_box,
       coordinate_url: trek.coordinate_url,
       image_url: trek.image_url,
+      poi_url: trek.poi_url ?? null,
+      poi_updated_at: trek.poi_updated_at ?? null,
       created_at: trek.created_at
     }));
     
