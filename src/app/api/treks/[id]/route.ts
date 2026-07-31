@@ -47,6 +47,7 @@ export async function GET(
         image_url,
         poi_url,
         poi_updated_at,
+        details_url,
         created_at
       FROM treks
       WHERE id = ${trekId}
@@ -75,6 +76,7 @@ export async function GET(
       image_url: result[0].image_url,
       poi_url: result[0].poi_url ?? null,
       poi_updated_at: result[0].poi_updated_at ?? null,
+      details_url: result[0].details_url ?? null,
       created_at: result[0].created_at
     };
 

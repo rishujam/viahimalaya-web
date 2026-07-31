@@ -12,5 +12,7 @@ export interface Trek {
   poi_url?: string | null;
   /** When the bundle was last regenerated; the app re-downloads when this changes. */
   poi_updated_at?: string | null;
+  /** External write-up opened by the "View details" link. Null hides the link. */
+  details_url?: string | null;
   created_at: string;
 }
