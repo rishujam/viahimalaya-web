@@ -12,7 +12,10 @@
   },
   "vars": {
     "NEXTAUTH_URL": "https://viahimalaya.com",
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    // Not a secret - it ships inside the APK in google-services.json. Used to
+    // pin the issuer and audience when verifying Firebase ID tokens.
+    "FIREBASE_PROJECT_ID": "viahimalaya-d673d"
   },
   "services": [
     {
