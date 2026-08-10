@@ -4,7 +4,7 @@
 -- ('node/8237631996', 'way/...'), which is globally unique and carries no trek
 -- scoping. A POI genuinely belongs to more than one trek - 38 of the 401 ids in
 -- the current bundles already appear in two or three - so scoping reviews to a
--- trek would fragment them. trek_id is recorded as provenance only.
+-- trek would fragment them.
 
 CREATE TABLE IF NOT EXISTS poi_reviews (
     -- OSM element id, exactly as it appears in the R2 bundle.
@@ -40,16 +40,17 @@ CREATE TABLE IF NOT EXISTS poi_reviews (
 
     -- Soft hide rather than DELETE, because deletes are not durable against our
     -- own offline write queue: a removed row is still sitting in the author's
-    -- pending uploads and the next sync upserts it straight back. The upsert
-    -- touches rating and comment only, so this flag survives.
+    -- pending uploads and the next sync writes it straight back. Neither the
+    -- add nor the update path touches this column, so the flag survives.
     is_hidden    BOOLEAN NOT NULL DEFAULT FALSE,
 
     created_at   TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at   TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
 
-    -- One review per user per POI. Without this a single account can flood a
-    -- POI and move its average at will; it also makes the write an idempotent
-    -- upsert, which is what an offline queue needs on retry.
+    -- One review per user per POI, enforced here rather than in the API so two
+    -- simultaneous requests cannot both win. Without it a single account could
+    -- flood a POI and move its average at will. This pair is also the review's
+    -- identity - there is no separate id column.
     PRIMARY KEY (poi_id, user_id)
 );
 

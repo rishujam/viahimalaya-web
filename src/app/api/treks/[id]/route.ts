@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { neon } from '@neondatabase/serverless';
-import { Trek } from '@/types/trek';
+import { Trek, ElevationSample } from '@/types/trek';
 
 export async function GET(
   request: NextRequest,
@@ -48,6 +48,7 @@ export async function GET(
         poi_url,
         poi_updated_at,
         details_url,
+        elevation_profile,
         created_at
       FROM treks
       WHERE id = ${trekId}
@@ -64,6 +65,13 @@ export async function GET(
       );
     }
 
+    // Neon's driver already parses jsonb into a real array. Guard anyway: if
+    // that ever changes the app would receive a string where it expects
+    // samples, and the slider would fail with nothing in the logs to explain it.
+    const rawProfile = result[0].elevation_profile;
+    const elevationProfile: ElevationSample[] | null =
+      typeof rawProfile === 'string' ? JSON.parse(rawProfile) : (rawProfile ?? null);
+
     // Transform the result to ensure proper typing
     const trek: Trek = {
       id: result[0].id,
@@ -77,6 +85,7 @@ export async function GET(
       poi_url: result[0].poi_url ?? null,
       poi_updated_at: result[0].poi_updated_at ?? null,
       details_url: result[0].details_url ?? null,
+      elevation_profile: elevationProfile,
       created_at: result[0].created_at
     };
 
