@@ -35,19 +35,32 @@ export default function Attribution() {
             .
           </p>
 
+          {/*
+            Verbatim from the Copernicus DEM licence, Article 6(b) — the notice
+            for data that has been "adapted or modified". Our elevation profiles
+            are resampled at 100 m from the source grid, so 6(a)'s unmodified
+            wording does not apply. Article 6(c) then requires the liability
+            sentence below, word for word. Do not paraphrase either.
+          */}
           <p>
-            Elevation data from the{" "}
+            Elevation data:{" "}
             <a
               href="https://spacedata.copernicus.eu/collections/copernicus-digital-elevation-model"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/70 hover:text-white underline underline-offset-2 transition-colors"
             >
-              Copernicus GLO-30 DEM
-            </a>
-            . © DLR e.V. 2010–2014 and © Airbus Defence and Space GmbH 2014–2018
-            provided under COPERNICUS by the European Union and ESA, all rights
+              produced using Copernicus WorldDEM-30
+            </a>{" "}
+            © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018
+            provided under COPERNICUS by the European Union and ESA; all rights
             reserved.
+          </p>
+
+          <p>
+            The organisations in charge of the Copernicus programme by law or by
+            delegation do not incur any liability for any use of the Copernicus
+            WorldDEM-30.
           </p>
 
           <p className="text-white/40 pt-2">
