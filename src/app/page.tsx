@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { MapPin, Wifi, Users } from 'lucide-react';
 import ViaHimalayaLogo from '@/components/ViaHimalayaLogo';
@@ -37,7 +38,7 @@ export default function ComingSoonPage() {
       >
         {/* Header */}
         <header
-          className="absolute top-0 left-0 right-0 z-10 flex justify-start items-center"
+          className="absolute top-0 left-0 right-0 z-10 flex justify-between items-center"
           style={{
             padding: 'max(env(safe-area-inset-top), 1rem) max(env(safe-area-inset-right), 1rem) 1rem max(env(safe-area-inset-left), 1rem)',
             paddingTop: 'max(env(safe-area-inset-top), 2vh)',
@@ -46,6 +47,12 @@ export default function ComingSoonPage() {
           }}
         >
           <ViaHimalayaLogo size="small" showText={true} />
+          <Link
+            href="/contact"
+            className="bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-full hover:bg-white/20 transition-all duration-300 font-medium font-sans px-4 py-2"
+          >
+            Request a trek
+          </Link>
         </header>
 
         {/* Main Content - Constrained within safe viewport */}
