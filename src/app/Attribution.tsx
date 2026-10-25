@@ -8,11 +8,24 @@
  * Rendered site-wide from layout.tsx so a future page cannot quietly ship
  * without it.
  */
+import Link from "next/link";
+
 export default function Attribution() {
   return (
     <footer className="relative z-10 bg-black border-t border-white/10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         <div className="flex flex-col gap-3 text-xs sm:text-sm text-white/50 font-sans leading-relaxed">
+          <p>
+            Have feedback or want to request a trek?{" "}
+            <Link
+              href="/contact"
+              className="text-white/70 hover:text-white underline underline-offset-2 transition-colors"
+            >
+              Contact us
+            </Link>
+            .
+          </p>
+
           <p>
             Trail and point-of-interest data ©{" "}
             <a
