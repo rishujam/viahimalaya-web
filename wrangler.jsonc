@@ -27,6 +27,18 @@
   "images": {
     "binding": "IMAGES"
   },
+  // Photos users submit from the app (custom_pois, migration 008). Private on
+  // purpose: no public access and no custom domain, so a photo is reachable only
+  // through this binding and nothing is visible until a route chooses to serve
+  // it. Not the assets.viahimalaya.com bucket, which is public.
+  // Create it once, before the first deploy that includes this:
+  //   npx wrangler r2 bucket create viahimalaya-user-photos
+  "r2_buckets": [
+    {
+      "binding": "USER_PHOTOS",
+      "bucket_name": "viahimalaya-user-photos"
+    }
+  ],
   "routes": [
     {
       "pattern": "viahimalaya.com/api/*",
