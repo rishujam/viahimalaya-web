@@ -37,10 +37,19 @@ export async function submitContactForm(
     return { status: 'error', error: `Message must be ${MAX_FEEDBACK_CHARS} characters or fewer.` };
   }
 
+  if (!process.env.DATABASE_URL) {
+    // Logged distinctly from the catch block below: a missing env var is a
+    // deploy/config mistake, not a runtime database failure, and the two look
+    // identical to the user but should not look identical to whoever is
+    // reading the logs afterwards.
+    console.error('Contact form submit error: DATABASE_URL is not set');
+    return { status: 'error', error: 'Something went wrong on our end. Please try again later.' };
+  }
+
   const feedbackId = `${email}/${Date.now()}`;
 
   try {
-    const sql = neon(process.env.DATABASE_URL!);
+    const sql = neon(process.env.DATABASE_URL);
     await sql`
       INSERT INTO feedback (feedback_id, feedback)
       VALUES (${feedbackId}, ${message})
