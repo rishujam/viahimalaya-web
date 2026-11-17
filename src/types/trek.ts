@@ -20,6 +20,13 @@ export interface Trek {
   poi_url?: string | null;
   /** When the bundle was last regenerated; the app re-downloads when this changes. */
   poi_updated_at?: string | null;
+  /**
+   * URL of the routes file on R2 (every section of the trek's network, the
+   * default route, POI positions). Null when the trek has none. Old apps ignore it.
+   */
+  routes_url?: string | null;
+  /** When the routes file was last regenerated; the app re-downloads when this changes. */
+  routes_updated_at?: string | null;
   /** External write-up opened by the "View details" link. Null hides the link. */
   details_url?: string | null;
   /**

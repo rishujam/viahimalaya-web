@@ -47,6 +47,8 @@ export async function GET(
         image_url,
         poi_url,
         poi_updated_at,
+        routes_url,
+        routes_updated_at,
         details_url,
         elevation_profile,
         created_at
@@ -84,6 +86,8 @@ export async function GET(
       image_url: result[0].image_url,
       poi_url: result[0].poi_url ?? null,
       poi_updated_at: result[0].poi_updated_at ?? null,
+      routes_url: result[0].routes_url ?? null,
+      routes_updated_at: result[0].routes_updated_at ?? null,
       details_url: result[0].details_url ?? null,
       elevation_profile: elevationProfile,
       created_at: result[0].created_at
